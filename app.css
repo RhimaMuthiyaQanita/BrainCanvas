@@ -1,0 +1,146 @@
+/* =========================================================
+   BrainCanvas — app.css (Sprint 03)
+   Dimuat setelah task2.css, task3.css, task4.css.
+   Warna, header, footer, dan tombol navigasi memakai gaya lama;
+   file ini hanya menambah gaya khusus kanvas.
+   ========================================================= */
+
+/* Toolbar & status */
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5rem;
+}
+.toolbar button {
+  padding: .55rem 1rem;
+  font: inherit;
+  font-weight: 700;
+  color: var(--navy);
+  background: var(--white);
+  border: 1.5px solid var(--line);
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background-color .15s;
+}
+.toolbar button:hover { background: var(--yellow); border-color: var(--yellow); }
+
+.status-bar {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: .25rem 1rem;
+  font-size: .9rem;
+  color: var(--muted);
+}
+.sync-status { font-weight: 700; }
+.sync-status.error { color: #b42318; }
+
+/* Panel loading / error */
+.panel { display: flex; align-items: center; flex-wrap: wrap; gap: .75rem; font-weight: 600; }
+.panel[hidden], #btnUlang[hidden] { display: none; }
+.panel p { margin: 0; }
+.panel.error { color: #b42318; }
+#btnUlang {
+  padding: .4rem .9rem;
+  font: inherit;
+  font-weight: 700;
+  color: var(--navy);
+  background: var(--yellow);
+  border: 0;
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+/* Kanvas ukuran tetap */
+.canvas {
+  position: relative;
+  height: 70vh;
+  min-height: 480px;
+  overflow: hidden;
+  background-color: var(--white);
+  background-image: radial-gradient(rgba(15, 31, 77, .18) 1.5px, transparent 1.5px);
+  background-size: 24px 24px;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+}
+.canvas[aria-busy="true"] { opacity: .5; }
+
+/* Kartu */
+.card {
+  position: absolute;
+  width: 260px;
+  background: var(--yellow-soft);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  box-shadow: var(--shadow);
+}
+.todo-card  { background: var(--mint-soft); }
+.image-card { background: var(--blue-soft); }
+.card.dragging { z-index: 5; box-shadow: 0 14px 30px rgba(15, 31, 77, .25); }
+
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  padding: .35rem .6rem;
+  border-bottom: 1px solid var(--line);
+  font-size: .8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .05em;
+}
+.drag-handle {
+  padding: 0 .2rem;
+  font: inherit;
+  letter-spacing: -2px;
+  color: inherit;
+  background: none;
+  border: 0;
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+}
+.card.dragging .drag-handle { cursor: grabbing; }
+.card-type { flex: 1; }
+.btn-close {
+  padding: 0 .4rem;
+  font-size: 1.2rem;
+  line-height: 1;
+  color: var(--muted);
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+.btn-close:hover { color: #b42318; }
+
+.card-body { padding: .6rem; }
+.card textarea {
+  width: 100%;
+  min-height: 90px;
+  padding: .4rem;
+  font: inherit;
+  color: var(--text);
+  background: rgba(255, 255, 255, .6);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  overflow: hidden;
+  resize: none;           /* tinggi mengikuti isi (diatur script.js/app.js) */
+}
+.card ul { margin: 0 0 .5rem; padding: 0; list-style: none; }
+.card li { padding: .2rem 0; }
+.card li input { accent-color: var(--blue); }
+.todo-baru {
+  width: 100%;
+  padding: .35rem .6rem;
+  font: inherit;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+}
+/* <figure> bawaan task2.css bergaya kartu; di dalam kartu dibuat polos */
+.card figure { padding: 0; background: none; border: 0; box-shadow: none; }
+.card figcaption { margin-top: .4rem; font-size: .85rem; color: var(--muted); text-align: center; }
+
+/* Fokus kontras (outline kuning bawaan kurang terlihat di kartu) */
+.card textarea:focus-visible,
+.card input:focus-visible,
+.toolbar button:focus-visible { outline-color: var(--navy); }

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kanvas — BrainCanvas</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="app.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+
+  <a class="skip-link" href="#konten">Langsung ke konten utama</a>
+
+  <!-- Header & navigasi sama dengan landing page -->
+  <header>
+    <a href="index.html">BrainCanvas</a>
+    <nav aria-label="Navigasi utama">
+      <ul>
+        <li><a href="index.html#beranda">Beranda</a></li>
+        <li><a href="index.html#fitur">Fitur</a></li>
+        <li><a href="index.html#contoh">Contoh Kanvas</a></li>
+        <li><a href="index.html#pengguna">Untuk Siapa</a></li>
+        <li><a href="app.html" aria-current="page">Kanvas</a></li>
+        <li><a href="#masuk">Masuk</a></li>
+        <li><a href="#daftar">Daftar</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="konten">
+    <section id="kanvas-app" aria-labelledby="kanvas-title">
+      <h2 id="kanvas-title">Kanvas Saya</h2>
+      <p>Geser kartu lewat ikon ⋮⋮. Isi dan posisinya tersimpan otomatis lewat API.</p>
+
+      <div class="toolbar" role="group" aria-label="Tambah kartu">
+        <button type="button" data-tipe="note">📝 Catatan</button>
+        <button type="button" data-tipe="todo">☑️ To-do</button>
+        <button type="button" data-tipe="image">🖼️ Gambar</button>
+      </div>
+
+      <div class="status-bar">
+        <span id="syncStatus" class="sync-status" role="status">Memuat...</span>
+        <span>Koordinat terakhir: <strong id="coords">-</strong></span>
+      </div>
+
+      <div id="panel" class="panel" role="status">
+        <p id="pesanApi">Memuat kanvas...</p>
+        <button type="button" id="btnUlang" hidden>Coba lagi</button>
+      </div>
+
+      <div id="canvas" class="canvas" role="region" aria-label="Kanvas kartu"></div>
+    </section>
+  </main>
+
+  <footer id="tentang">
+    <p>BrainCanvas</p>
+    <p>Papan ide visual yang ringan untuk manajemen ide personal.</p>
+    <p>&copy; 2026 BrainCanvas. Tugas Web Programming — Pertemuan 4.</p>
+  </footer>
+
+</body>
+</html>
