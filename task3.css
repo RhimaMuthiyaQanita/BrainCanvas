@@ -1,0 +1,92 @@
+/* =========================================================
+   BrainCanvas — task3.css
+   Task 03: Refine the Interface
+   File terpisah, dimuat setelah task2.css. Isinya perbaikan
+   kecil di atas hasil Task 2, bukan menulis ulang dari nol.
+   ========================================================= */
+
+
+/* ---------- 1. Skip link ---------- */
+/* Tautan ini tersembunyi secara visual, tapi tetap bisa
+   diakses dan jadi fokus pertama bagi pengguna keyboard/
+   pembaca layar — berguna supaya mereka tidak perlu melewati
+   seluruh menu navigasi setiap buka halaman. */
+.skip-link {
+  position: absolute;
+  top: -3rem;
+  left: var(--space-2);
+  z-index: 100;
+  padding: .6rem 1rem;
+  border-radius: 8px;
+  background: var(--navy);
+  color: var(--white);
+  font-weight: 700;
+  transition: top .15s ease;
+}
+
+.skip-link:focus {
+  top: var(--space-2);
+}
+
+
+/* ---------- 2. Kontras fokus pada tombol berwarna ---------- */
+/* Outline fokus bawaan berwarna kuning. Di atas tombol
+   "Daftar" (latar kuning) itu nyaris tidak terlihat, jadi
+   tombol navigasi dan CTA diberi warna fokus yang kontras
+   terhadap latarnya sendiri. */
+nav a:focus-visible {
+  outline-color: var(--navy);
+}
+
+#beranda > a:first-of-type:focus-visible {
+  outline-color: var(--navy);
+}
+
+
+/* ---------- 3. Hover & fokus yang konsisten di semua kartu ---------- */
+/* Di Task 2, efek terangkat saat hover baru ada di kartu
+   Contoh Kanvas. Supaya terasa satu sistem yang sama,
+   seluruh kartu (Masalah/Solusi, Fitur, Untuk Siapa) diberi
+   interaksi yang sama, dengan jarak transisi yang halus. */
+#masalah article,
+#fitur article,
+#pengguna article {
+  transition: transform .15s ease, box-shadow .15s ease;
+}
+
+#masalah article:hover,
+#fitur article:hover,
+#pengguna article:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 14px 28px rgba(15, 31, 77, .12);
+}
+
+/* Kartu yang berisi link/kontrol yang sedang difokus ikut
+   terangkat juga, supaya pengguna keyboard dapat sinyal yang
+   sama seperti pengguna mouse. */
+#masalah article:focus-within,
+#fitur article:focus-within,
+#pengguna article:focus-within,
+#contoh > article:focus-within,
+#contoh > figure:focus-within {
+  transform: translateY(-3px);
+  box-shadow: 0 14px 28px rgba(15, 31, 77, .12);
+}
+
+
+/* ---------- 4. Status checklist yang lebih jelas ---------- */
+/* Saat sebuah tugas dicentang, baris itu diberi sedikit jarak
+   dan opacity supaya terlihat selesai, bukan cuma teksnya yang
+   dicoret. */
+#contoh li:has(input:checked) {
+  opacity: .65;
+}
+
+
+/* ---------- 5. Jaga jarak akhir sebelum footer ---------- */
+/* Section terakhir ("Untuk Siapa") menempel agak dekat ke
+   footer dibanding jarak antar-section lainnya; disamakan di
+   sini tanpa mengubah --space-4 global. */
+#pengguna {
+  padding-bottom: var(--space-5);
+}

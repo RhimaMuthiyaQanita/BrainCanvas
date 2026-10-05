@@ -1,0 +1,493 @@
+/* =========================================================
+   BrainCanvas — style.css
+   Task 02: Style & Responsive
+   Pendekatan: mobile-first (gaya dasar untuk layar kecil,
+   lalu diperluas dengan min-width media query).
+   ========================================================= */
+
+
+/* ---------- 1. Design tokens ---------- */
+:root {
+  /* Warna */
+  --navy:        #0f1f4d;
+  --blue:        #1d6df2;
+  --blue-dark:   #1556c4;
+  --blue-soft:   #eaf2ff;
+  --yellow:      #ffd23f;
+  --yellow-soft: #fff6c9;
+  --mint-soft:   #e6f7ef;
+  --rose-soft:   #fdecec;
+  --text:        #1f2a44;
+  --muted:       #5b6785;
+  --line:        #d9e3f5;
+  --bg:          #f5f8ff;
+  --white:       #ffffff;
+
+  /* Tipografi */
+  --font: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+
+  /* Spacing & bentuk */
+  --space-1: .5rem;
+  --space-2: 1rem;
+  --space-3: 1.5rem;
+  --space-4: 2.5rem;
+  --space-5: 4rem;
+  --radius:  16px;
+  --shadow:  0 6px 20px rgba(15, 31, 77, .08);
+  --container: 1100px;
+}
+
+
+/* ---------- 2. Reset & dasar ---------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;      /* supaya judul tidak tertutup header sticky */
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font);
+  font-size: 1rem;
+  line-height: 1.65;
+  color: var(--text);
+  background: var(--bg);
+  overflow-wrap: break-word;
+  overflow-x: clip;              /* jaring pengaman: cegah horizontal overflow */
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+h1, h2, h3 {
+  margin: 0 0 var(--space-1);
+  color: var(--navy);
+  line-height: 1.2;
+}
+
+h1 { font-size: clamp(1.9rem, 6vw, 3.25rem); letter-spacing: -.02em; }
+h2 { font-size: clamp(1.5rem, 4vw, 2.1rem);   letter-spacing: -.01em; }
+h3 { font-size: 1.15rem; }
+
+p { margin: 0 0 var(--space-2); }
+
+a {
+  color: var(--blue);
+  text-decoration: none;
+}
+a:hover { color: var(--blue-dark); }
+
+a:focus-visible,
+input:focus-visible {
+  outline: 3px solid var(--yellow);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+ul {
+  margin: 0;
+  padding-left: 1.25rem;
+}
+li::marker { color: var(--blue); }
+
+
+/* ---------- 3. Header & navigasi ---------- */
+header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;         /* mobile: logo di atas, menu di bawah */
+  align-items: center;
+  gap: var(--space-1);
+  padding: .75rem var(--space-2);
+  background: rgba(255, 255, 255, .92);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--line);
+}
+
+header > a {                       /* logo */
+  font-size: 1.35rem;
+  font-weight: 800;
+  letter-spacing: -.02em;
+  color: var(--navy);
+}
+
+nav ul {
+  display: flex;
+  flex-wrap: wrap;                 /* menu turun baris, tidak melebar keluar layar */
+  justify-content: center;
+  gap: .25rem .5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+nav a {
+  display: block;
+  padding: .4rem .75rem;
+  border-radius: 999px;
+  font-size: .95rem;
+  font-weight: 600;
+  color: var(--text);
+  transition: background-color .2s, color .2s;
+}
+nav a:hover {
+  background: var(--blue-soft);
+  color: var(--blue);
+}
+
+/* "Masuk" = tombol outline, "Daftar" = tombol utama */
+nav li:nth-last-child(2) a {
+  border: 1.5px solid var(--blue);
+  color: var(--blue);
+}
+nav li:last-child a {
+  background: var(--yellow);
+  color: var(--navy);
+}
+nav li:last-child a:hover {
+  background: #f5c400;
+  color: var(--navy);
+}
+
+
+/* ---------- 4. Layout umum section ---------- */
+main > section {
+  width: min(100% - 2rem, var(--container));  /* selalu ada margin kiri-kanan */
+  margin-inline: auto;
+  padding-block: var(--space-4);
+  display: grid;
+  gap: var(--space-2);
+}
+
+/* Judul & paragraf pembuka section membentang penuh */
+main > section > h2,
+main > section > p {
+  grid-column: 1 / -1;
+}
+main > section > h2 { margin-bottom: 0; }
+main > section > p  { color: var(--muted); max-width: 62ch; margin-bottom: 0; }
+
+
+/* ---------- 5. Kartu (dipakai di banyak section) ---------- */
+article,
+figure {
+  margin: 0;
+  padding: var(--space-3);
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+article > p:last-child,
+article > ul:last-child {
+  margin-bottom: 0;
+}
+
+
+/* ---------- 6. Hero ---------- */
+#beranda {
+  display: flex;
+  flex-wrap: wrap;               /* h1 & p satu baris penuh, tombol berdampingan */
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  gap: var(--space-2);
+  margin-top: var(--space-3);
+  padding: var(--space-4) var(--space-2);
+  border-radius: 24px;
+  background-color: var(--blue-soft);
+  /* motif titik-titik = simbol "kanvas" */
+  background-image: radial-gradient(rgba(29, 109, 242, .22) 1.5px, transparent 1.5px);
+  background-size: 22px 22px;
+}
+
+#beranda h1,
+#beranda p {
+  flex: 0 0 100%;
+}
+
+/* Lebar teks dibatasi lewat padding (bukan max-width) agar tombol
+   tetap turun ke baris berikutnya dan tidak ikut sebaris dengan teks */
+#beranda h1 {
+  margin: 0;
+  padding-inline: max(0px, calc((100% - 20ch) / 2));
+}
+
+#beranda p {
+  max-width: none;               /* timpa aturan umum section */
+  margin: 0;
+  padding-inline: max(0px, calc((100% - 56ch) / 2));
+  font-size: 1.1rem;
+  color: var(--text);
+}
+
+/* Tombol CTA */
+#beranda > a {
+  display: inline-block;
+  padding: .8rem 1.5rem;
+  border-radius: 999px;
+  font-weight: 700;
+  text-align: center;
+  transition: transform .15s, box-shadow .15s, background-color .15s;
+}
+#beranda > a:first-of-type {
+  background: var(--yellow);
+  color: var(--navy);
+  box-shadow: 0 4px 0 #d9ac00;
+}
+#beranda > a:first-of-type:hover {
+  transform: translateY(-2px);
+  background: #ffdc66;
+}
+#beranda > a:last-of-type {
+  background: var(--white);
+  color: var(--navy);
+  border: 2px solid var(--navy);
+}
+#beranda > a:last-of-type:hover {
+  background: var(--navy);
+  color: var(--white);
+}
+
+
+/* ---------- 7. Masalah & Solusi ---------- */
+#masalah {
+  grid-template-columns: 1fr;
+}
+
+#masalah article:first-of-type { background: var(--rose-soft); }
+#masalah article:last-of-type  { background: var(--blue-soft); }
+
+#masalah h3 {
+  display: inline-block;
+  padding: .15rem .8rem;
+  margin-bottom: var(--space-1);
+  border-radius: 999px;
+  font-size: .85rem;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  background: var(--white);
+}
+#masalah article:first-of-type h3 { color: #b42318; }
+#masalah article:last-of-type  h3 { color: var(--blue-dark); }
+
+
+/* ---------- 8. Fitur Utama ---------- */
+#fitur {
+  grid-template-columns: 1fr;
+  counter-reset: fitur;
+}
+
+#fitur article h3 {
+  display: flex;
+  align-items: center;
+  gap: .65rem;
+  margin-bottom: var(--space-1);
+}
+
+/* Nomor bulat otomatis di depan judul fitur */
+#fitur article h3::before {
+  counter-increment: fitur;
+  content: counter(fitur);
+  flex: 0 0 auto;
+  display: grid;
+  place-items: center;
+  width: 1.9rem;
+  height: 1.9rem;
+  border-radius: 50%;
+  background: var(--blue);
+  color: var(--white);
+  font-size: .9rem;
+  font-weight: 700;
+}
+
+#fitur li + li { margin-top: .4rem; }
+
+
+/* ---------- 9. Contoh Kanvas ---------- */
+#contoh {
+  grid-template-columns: 1fr;
+  gap: var(--space-3);
+  align-items: start;
+}
+
+#contoh > article,
+#contoh > figure {
+  transition: transform .2s, box-shadow .2s;
+}
+
+/* Text Card = sticky note kuning */
+#contoh > article:first-of-type {
+  background: var(--yellow-soft);
+  border-color: #f0dc7a;
+}
+
+/* Checklist Card */
+#contoh > article:last-of-type {
+  background: var(--mint-soft);
+  border-color: #b9e6d0;
+}
+
+#contoh ul {
+  list-style: none;
+  padding: 0;
+}
+#contoh li {
+  display: flex;
+  align-items: center;
+  gap: .6rem;
+  padding: .35rem 0;
+}
+#contoh li + li { border-top: 1px dashed #b9e6d0; }
+
+#contoh input[type="checkbox"] {
+  flex: 0 0 auto;
+  width: 1.15rem;
+  height: 1.15rem;
+  margin: 0;
+  accent-color: var(--blue);
+  cursor: pointer;
+}
+#contoh label { cursor: pointer; }
+#contoh input:checked + label {
+  color: var(--muted);
+  text-decoration: line-through;
+}
+
+/* Image Card = foto bergaya polaroid */
+#contoh figure {
+  padding: .75rem .75rem 1rem;
+}
+#contoh figure img {
+  width: 100%;
+  border-radius: 10px;
+}
+#contoh figcaption {
+  margin-top: .6rem;
+  text-align: center;
+  font-size: .9rem;
+  color: var(--muted);
+}
+
+
+/* ---------- 10. Untuk Siapa ---------- */
+#pengguna {
+  grid-template-columns: 1fr;
+}
+#pengguna article:first-of-type { background: var(--blue-soft); }
+#pengguna article:last-of-type  { background: var(--yellow-soft); }
+
+
+/* ---------- 11. Footer ---------- */
+footer {
+  margin-top: var(--space-4);
+  padding: var(--space-4) var(--space-2);
+  text-align: center;
+  background: var(--navy);
+  color: #c9d5f2;
+}
+footer p { margin: 0 0 .35rem; }
+footer p:first-child {
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: var(--white);
+}
+footer p:last-child {
+  margin-top: var(--space-2);
+  font-size: .85rem;
+  color: #9fb0da;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+/* ---- Tablet: >= 640px ---- */
+@media (min-width: 640px) {
+  header {
+    flex-direction: row;
+    justify-content: space-between;
+    padding-inline: var(--space-3);
+  }
+  nav ul { justify-content: flex-end; }
+
+  #beranda { padding: var(--space-5) var(--space-3); }
+
+  #masalah,
+  #fitur,
+  #pengguna {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  #contoh {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  /* Kartu gambar melebar penuh supaya tidak ada ruang kosong */
+  #contoh > figure { grid-column: 1 / -1; }
+  #contoh > figure img { max-width: 480px; margin-inline: auto; }
+}
+
+/* ---- Desktop: >= 960px ---- */
+@media (min-width: 960px) {
+  main > section { padding-block: var(--space-5); }
+
+  /* Kanvas tiga kolom + kartu sedikit miring seperti ditempel di papan */
+  #contoh {
+    grid-template-columns: repeat(3, 1fr);
+    padding: var(--space-4) var(--space-3);
+    border-radius: 24px;
+    background-color: var(--white);
+    background-image: radial-gradient(rgba(15, 31, 77, .18) 1.5px, transparent 1.5px);
+    background-size: 24px 24px;
+    border: 1px solid var(--line);
+  }
+  #contoh > h2,
+  #contoh > p { padding-inline: var(--space-1); }
+
+  #contoh > figure { grid-column: auto; }
+  #contoh > figure img { max-width: 100%; }
+
+  #contoh > article:first-of-type { transform: rotate(-1.5deg); }
+  #contoh > article:last-of-type  { transform: rotate(1deg); }
+  #contoh > figure                { transform: rotate(-1deg); }
+
+  #contoh > article:hover,
+  #contoh > figure:hover {
+    transform: rotate(0) translateY(-4px);
+    box-shadow: 0 14px 30px rgba(15, 31, 77, .16);
+  }
+}
+
+/* ---- Layar sangat kecil: <= 380px ---- */
+@media (max-width: 380px) {
+  article,
+  figure { padding: var(--space-2); }
+  nav a { padding: .35rem .6rem; font-size: .9rem; }
+}
+
+/* Header tidak sticky di layar pendek (mis. HP landscape) */
+@media (max-height: 480px) {
+  header { position: static; }
+}
+
+/* Hormati preferensi pengguna yang mengurangi animasi */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    transition: none !important;
+    animation: none !important;
+  }
+}

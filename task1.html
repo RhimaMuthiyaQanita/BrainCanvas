@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="BrainCanvas — papan ide visual berbasis drag-and-drop untuk menata catatan, tugas, dan gambar dalam satu kanvas.">
+  <title>BrainCanvas — Papan Ide Visual untuk Brainstorming Cepat</title>
+  <link rel="stylesheet" href="task2.css">
+  <link rel="stylesheet" href="task3.css">
+  <link rel="stylesheet" href="task4.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+
+  <a class="skip-link" href="#konten">Langsung ke konten utama</a>
+
+  <!-- ========== HEADER ========== -->
+  <header>
+    <a href="#beranda">BrainCanvas</a>
+    <nav aria-label="Navigasi utama">
+      <ul>
+        <li><a href="#beranda">Beranda</a></li>
+        <li><a href="#fitur">Fitur</a></li>
+        <li><a href="#contoh">Contoh Kanvas</a></li>
+        <li><a href="#pengguna">Untuk Siapa</a></li>
+        <li><a href="#masuk">Masuk</a></li>
+        <li><a href="#daftar">Daftar</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- ========== MAIN ========== -->
+  <main id="konten">
+
+    <section id="beranda" aria-labelledby="hero-title">
+      <h1 id="hero-title">Papan Ide Visual untuk Brainstorming Cepat</h1>
+      <p>Tata catatan, tugas, dan gambar dengan drag-and-drop di satu kanvas. Posisinya tersimpan otomatis.</p>
+      <a href="#daftar">Mulai Buat Kanvas</a>
+      <a href="#contoh">Lihat Contoh</a>
+    </section>
+
+    <section id="masalah" aria-labelledby="masalah-title">
+      <h2 id="masalah-title">Kenapa BrainCanvas?</h2>
+
+      <article>
+        <h3>Masalah</h3>
+        <p>Dokumen teks seperti Google Docs terlalu kaku untuk menata ide. Alat seperti Canva atau Figma terlalu kompleks untuk sekadar brainstorming cepat.</p>
+      </article>
+
+      <article>
+        <h3>Solusi</h3>
+        <p>Kanvas web sederhana berbasis drag-and-drop untuk menata catatan, tugas, dan gambar dalam satu papan interaktif dengan penyimpanan otomatis.</p>
+      </article>
+    </section>
+
+    <section id="fitur" aria-labelledby="fitur-title">
+      <h2 id="fitur-title">Fitur Utama</h2>
+      <p>Semua yang dibutuhkan untuk menata ide, tanpa fitur yang tidak perlu.</p>
+
+      <article>
+        <h3>Kanvas Interaktif</h3>
+        <p>Area kerja berukuran tetap. Letakkan kartu di posisi mana pun dengan drag-and-drop.</p>
+      </article>
+
+      <article>
+        <h3>Kartu Multi-Media</h3>
+        <p>Tiga jenis kartu untuk kebutuhan yang berbeda:</p>
+        <ul>
+          <li><strong>Text Card:</strong> catatan cepat untuk ide atau paragraf.</li>
+          <li><strong>Checklist Card:</strong> daftar tugas yang bisa dicentang.</li>
+          <li><strong>Image Card:</strong> gambar dari tautan URL.</li>
+        </ul>
+      </article>
+
+      <article>
+        <h3>Simpan Otomatis</h3>
+        <p>Setiap kali kartu digeser, posisinya langsung tersimpan. Buka lagi kapan saja, susunannya tetap sama.</p>
+      </article>
+
+      <article>
+        <h3>Akun dan Ekspor</h3>
+        <ul>
+          <li>Login dan register untuk menyimpan kanvas pribadi.</li>
+          <li>Ekspor kanvas ke gambar atau PDF.</li>
+        </ul>
+      </article>
+    </section>
+
+    <!-- Contoh Kanvas -->
+    <section id="contoh" aria-labelledby="contoh-title">
+      <h2 id="contoh-title">Contoh Kanvas</h2>
+      <p>Contoh tiga jenis kartu di atas satu kanvas. Coba centang, tambah, atau hapus tugas di kartu checklist.</p>
+
+      <!-- Text Card -->
+      <article>
+        <h3>Ide Riset</h3>
+        <p>Bandingkan cara peneliti mencatat ide: dokumen, sticky note, atau papan visual.</p>
+      </article>
+
+      <!-- Checklist Card (interaktif: lihat script.js) -->
+      <article>
+        <h3>Tugas Minggu Ini</h3>
+        <p id="progres" aria-live="polite">0 dari 3 tugas selesai</p>
+        <progress id="bar" max="3" value="0" aria-hidden="true"></progress>
+
+        <ul id="daftar-tugas">
+          <li>
+            <input type="checkbox" id="tugas-1">
+            <label for="tugas-1">Kumpulkan referensi</label>
+          </li>
+          <li>
+            <input type="checkbox" id="tugas-2">
+            <label for="tugas-2">Rangkum temuan awal</label>
+          </li>
+          <li>
+            <input type="checkbox" id="tugas-3">
+            <label for="tugas-3">Diskusi dengan pembimbing</label>
+          </li>
+        </ul>
+
+        <form id="form-tugas" novalidate>
+          <label for="tugas-baru" class="sr-only">Tugas baru</label>
+          <input type="text" id="tugas-baru" placeholder="Tambah tugas baru" maxlength="60" autocomplete="off">
+          <button type="submit">Tambah</button>
+        </form>
+        <p id="pesan" role="status"></p>
+        <button type="button" id="hapus-selesai" class="btn-kecil">Hapus yang selesai</button>
+      </article>
+
+      <!-- Image Card -->
+      <figure>
+        <img src="https://placehold.co/400x300?text=Image+Card" alt="Contoh Image Card dari tautan URL" width="400" height="300">
+        <figcaption>Referensi visual</figcaption>
+      </figure>
+    </section>
+
+    <section id="pengguna" aria-labelledby="pengguna-title">
+      <h2 id="pengguna-title">Untuk Siapa</h2>
+
+      <article>
+        <h3>Peneliti Individu</h3>
+        <p>Kumpulkan kutipan, catatan, dan gambar penelitian dalam satu papan yang mudah ditata ulang.</p>
+      </article>
+
+      <article>
+        <h3>Individu Kreatif</h3>
+        <p>Tuangkan ide, inspirasi, dan daftar tugas tanpa harus belajar alat yang rumit.</p>
+      </article>
+    </section>
+
+  </main>
+
+  <!-- ========== FOOTER ========== -->
+  <footer id="tentang">
+    <p>BrainCanvas</p>
+    <p>Papan ide visual yang ringan untuk manajemen ide personal.</p>
+    <p>&copy; 2026 BrainCanvas. Tugas Web Programming — Pertemuan 3.</p>
+  </footer>
+
+</body>
+</html>
