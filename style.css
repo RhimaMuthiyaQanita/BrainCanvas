@@ -491,3 +491,195 @@ footer p:last-child {
     animation: none !important;
   }
 }
+
+/* =========================================================
+   BrainCanvas — task3.css
+   Task 03: Refine the Interface
+   File terpisah, dimuat setelah task2.css. Isinya perbaikan
+   kecil di atas hasil Task 2, bukan menulis ulang dari nol.
+   ========================================================= */
+
+
+/* ---------- 1. Skip link ---------- */
+/* Tautan ini tersembunyi secara visual, tapi tetap bisa
+   diakses dan jadi fokus pertama bagi pengguna keyboard/
+   pembaca layar — berguna supaya mereka tidak perlu melewati
+   seluruh menu navigasi setiap buka halaman. */
+.skip-link {
+  position: absolute;
+  top: -3rem;
+  left: var(--space-2);
+  z-index: 100;
+  padding: .6rem 1rem;
+  border-radius: 8px;
+  background: var(--navy);
+  color: var(--white);
+  font-weight: 700;
+  transition: top .15s ease;
+}
+
+.skip-link:focus {
+  top: var(--space-2);
+}
+
+
+/* ---------- 2. Kontras fokus pada tombol berwarna ---------- */
+/* Outline fokus bawaan berwarna kuning. Di atas tombol
+   "Daftar" (latar kuning) itu nyaris tidak terlihat, jadi
+   tombol navigasi dan CTA diberi warna fokus yang kontras
+   terhadap latarnya sendiri. */
+nav a:focus-visible {
+  outline-color: var(--navy);
+}
+
+#beranda > a:first-of-type:focus-visible {
+  outline-color: var(--navy);
+}
+
+
+/* ---------- 3. Hover & fokus yang konsisten di semua kartu ---------- */
+/* Di Task 2, efek terangkat saat hover baru ada di kartu
+   Contoh Kanvas. Supaya terasa satu sistem yang sama,
+   seluruh kartu (Masalah/Solusi, Fitur, Untuk Siapa) diberi
+   interaksi yang sama, dengan jarak transisi yang halus. */
+#masalah article,
+#fitur article,
+#pengguna article {
+  transition: transform .15s ease, box-shadow .15s ease;
+}
+
+#masalah article:hover,
+#fitur article:hover,
+#pengguna article:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 14px 28px rgba(15, 31, 77, .12);
+}
+
+/* Kartu yang berisi link/kontrol yang sedang difokus ikut
+   terangkat juga, supaya pengguna keyboard dapat sinyal yang
+   sama seperti pengguna mouse. */
+#masalah article:focus-within,
+#fitur article:focus-within,
+#pengguna article:focus-within,
+#contoh > article:focus-within,
+#contoh > figure:focus-within {
+  transform: translateY(-3px);
+  box-shadow: 0 14px 28px rgba(15, 31, 77, .12);
+}
+
+
+/* ---------- 4. Status checklist yang lebih jelas ---------- */
+/* Saat sebuah tugas dicentang, baris itu diberi sedikit jarak
+   dan opacity supaya terlihat selesai, bukan cuma teksnya yang
+   dicoret. */
+#contoh li:has(input:checked) {
+  opacity: .65;
+}
+
+
+/* ---------- 5. Jaga jarak akhir sebelum footer ---------- */
+/* Section terakhir ("Untuk Siapa") menempel agak dekat ke
+   footer dibanding jarak antar-section lainnya; disamakan di
+   sini tanpa mengubah --space-4 global. */
+#pengguna {
+  padding-bottom: var(--space-5);
+}
+
+/* =========================================================
+   BrainCanvas — task4.css
+   Sprint 02: gaya untuk elemen interaktif di Checklist Card.
+   Dimuat setelah task2.css dan task3.css.
+   ========================================================= */
+
+/* Label tersembunyi secara visual, tetap terbaca screen reader */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* Progres */
+#progres {
+  margin-bottom: .4rem;
+  font-size: .9rem;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+#bar {
+  display: block;
+  width: 100%;
+  height: .5rem;
+  margin-bottom: var(--space-1);
+  accent-color: var(--blue);
+}
+
+/* Form tambah tugas */
+#form-tugas {
+  display: flex;
+  gap: .5rem;
+  margin-top: var(--space-2);
+}
+
+#form-tugas input {
+  flex: 1 1 auto;
+  min-width: 0;
+  padding: .55rem .8rem;
+  font: inherit;
+  color: var(--text);
+  background: var(--white);
+  border: 1.5px solid var(--line);
+  border-radius: 999px;
+}
+
+#form-tugas button,
+.btn-kecil {
+  padding: .55rem 1rem;
+  font: inherit;
+  font-weight: 700;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background-color .15s, color .15s;
+}
+
+#form-tugas button {
+  flex: 0 0 auto;
+  color: var(--navy);
+  background: var(--yellow);
+  border: 0;
+}
+#form-tugas button:hover { background: #f5c400; }
+
+.btn-kecil {
+  margin-top: var(--space-1);
+  font-size: .85rem;
+  color: var(--blue);
+  background: transparent;
+  border: 1.5px solid var(--blue);
+}
+.btn-kecil:hover:not(:disabled) {
+  color: var(--white);
+  background: var(--blue);
+}
+.btn-kecil:disabled {
+  opacity: .45;
+  cursor: not-allowed;
+}
+
+button:focus-visible {
+  outline: 3px solid var(--navy);
+  outline-offset: 3px;
+}
+
+/* Pesan validasi */
+#pesan {
+  min-height: 1.4em;
+  margin: .4rem 0 0;
+  font-size: .85rem;
+  color: #b42318;
+}
