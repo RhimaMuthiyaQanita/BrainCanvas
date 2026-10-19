@@ -1,20 +1,19 @@
 <?php
 /* =========================================================
-   BrainCanvas — prioritas.php (Week 5)
-   PHP procedural, server-side rendering.
-   Task 01: variabel PHP
-   Task 02: array multidimensi, kondisi status/badge, loop penomoran
-   Task 03: grid kartu prioritas dibuat dinamis di sisi server
+   BrainCanvas — prioritas.php (Week 6, Sprint 05)
+   PHP OOP: data dikelola object dari class Papan (Papan.php).
+   Task 01: class Papan dibuat (property, constructor)
+   Task 02: property dan method (getProfil, getKartu, getRingkasan)
+   Task 03: object dipakai untuk menghasilkan HTML dinamis
    ========================================================= */
 
-/* ---------- Task 01: variabel PHP ---------- */
-// Padanan variabel di soal: $namaPresiden -> $namaPemilik,
-// $statusProgram -> $statusKanvas, $programPrioritas -> $kartuPrioritas
+require __DIR__ . "/Papan.php";
+
+/* ---------- Sumber data (array dari Week 5) ---------- */
 $namaPemilik  = "Tya";
 $periode      = "Oktober 2026";
 $statusKanvas = "Sedang Dikerjakan";
 
-/* ---------- Task 02: array multidimensi (pengganti db.json) ---------- */
 $kartuPrioritas = [
     [
         "ikon"      => "📝",
@@ -60,38 +59,12 @@ function e($teks)
     return htmlspecialchars((string) $teks, ENT_QUOTES, 'UTF-8');
 }
 
-// Proses data: tentukan label + kelas badge, beri nomor urut, hitung ringkasan
-$total = count($kartuPrioritas);
-$jumlahSelesai = 0;
-$jumlahProses  = 0;
-$jumlahBaru    = 0;
-$kartuTampil   = [];
+/* ---------- Task 01: buat object dari class Papan ---------- */
+$papan = new Papan($namaPemilik, $periode, $statusKanvas, $kartuPrioritas);
 
-foreach ($kartuPrioritas as $indeks => $kartu) {
-    switch ($kartu["status"]) {
-        case "selesai":
-            $label = "Selesai";
-            $kelasBadge = "badge-selesai";
-            $jumlahSelesai++;
-            break;
-        case "proses":
-            $label = "Dikerjakan";
-            $kelasBadge = "badge-proses";
-            $jumlahProses++;
-            break;
-        default:
-            $label = "Belum Mulai";
-            $kelasBadge = "badge-baru";
-            $jumlahBaru++;
-    }
-
-    $kartu["nomor"]      = str_pad($indeks + 1, 2, "0", STR_PAD_LEFT);
-    $kartu["labelBadge"] = $label;
-    $kartu["kelasBadge"] = $kelasBadge;
-    $kartuTampil[]       = $kartu;
-}
-
-$persenSelesai = ($total > 0) ? round($jumlahSelesai / $total * 100) : 0;
+/* ---------- Task 02: data diolah lewat method object ---------- */
+$kartuTampil = $papan->getKartu();
+$ringkasan   = $papan->getRingkasan();
 ?>
 <!DOCTYPE html>
 <html lang="id">
@@ -126,23 +99,23 @@ $persenSelesai = ($total > 0) ? round($jumlahSelesai / $total * 100) : 0;
     <section id="prioritas" aria-labelledby="prioritas-title">
       <h2 id="prioritas-title">Kartu Prioritas</h2>
 
-      <!-- Task 01: variabel PHP ditampilkan -->
+      <!-- Data profil dari method object -->
       <p>
-        Papan milik <strong><?= e($namaPemilik) ?></strong> · Periode <?= e($periode) ?> ·
-        Status: <span class="badge badge-aktif"><?= e($statusKanvas) ?></span>
+        <?= e($papan->getProfil()) ?> ·
+        Status: <span class="badge badge-aktif"><?= e($papan->getStatusKanvas()) ?></span>
       </p>
 
-      <!-- Task 02: hasil pengolahan data -->
+      <!-- Ringkasan dari method getRingkasan() -->
       <ul class="ringkasan">
-        <li>Total: <?= $total ?> kartu</li>
-        <li>Selesai: <?= $jumlahSelesai ?></li>
-        <li>Dikerjakan: <?= $jumlahProses ?></li>
-        <li>Belum mulai: <?= $jumlahBaru ?></li>
-        <li>Progres: <?= $persenSelesai ?>%</li>
+        <li>Total: <?= $ringkasan["total"] ?> kartu</li>
+        <li>Selesai: <?= $ringkasan["selesai"] ?></li>
+        <li>Dikerjakan: <?= $ringkasan["proses"] ?></li>
+        <li>Belum mulai: <?= $ringkasan["baru"] ?></li>
+        <li>Progres: <?= $ringkasan["persen"] ?>%</li>
       </ul>
 
-      <!-- Task 03: grid kartu dibuat dinamis oleh PHP -->
-      <?php if ($total === 0): ?>
+      <!-- Task 03: grid kartu dibuat dari data object -->
+      <?php if ($ringkasan["total"] === 0): ?>
         <p>Belum ada kartu prioritas.</p>
       <?php else: ?>
         <div class="grid-kartu">
@@ -166,7 +139,7 @@ $persenSelesai = ($total > 0) ? round($jumlahSelesai / $total * 100) : 0;
   <footer id="tentang">
     <p>BrainCanvas</p>
     <p>Papan ide visual yang ringan untuk manajemen ide personal.</p>
-    <p>&copy; 2026 BrainCanvas. Tugas Web Programming — Pertemuan 5.</p>
+    <p>&copy; 2026 BrainCanvas. Tugas Web Programming — Pertemuan 6.</p>
   </footer>
 
 </body>
