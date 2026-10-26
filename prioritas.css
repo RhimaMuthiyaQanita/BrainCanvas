@@ -58,3 +58,7 @@
 .badge-selesai { background: var(--mint-soft);   color: #0a6b3d; }
 .badge-proses  { background: var(--yellow-soft); color: #7a5b00; }
 .badge-baru    { background: var(--rose-soft);   color: #b42318; }
+
+/* Tautan detail & halaman detail (Week 7) */
+.detail-link { margin-top: auto; font-weight: 700; }
+.kartu-detail { max-width: 520px; }

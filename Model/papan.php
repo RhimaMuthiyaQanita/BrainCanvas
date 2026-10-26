@@ -1,9 +1,8 @@
 <?php
 /* =========================================================
-   BrainCanvas — Papan.php (Week 6, Sprint 05)
-   Class Papan mewakili data papan ide: pemilik, periode,
-   status, dan daftar kartu prioritas.
-   Padanan di soal: class President (name, period, programs).
+   BrainCanvas — Model/Papan.php (Week 7, MVC)
+   MODEL: mengelola data papan (pemilik, periode, status, kartu)
+   dan akses datanya. Tidak berisi HTML dan tidak tahu soal View.
    ========================================================= */
 
 class Papan
@@ -91,6 +90,62 @@ class Papan
             "baru"    => $total - $selesai - $proses,
             "persen"  => ($total > 0) ? round($selesai / $total * 100) : 0,
         ];
+    }
+
+    // Data access: sumber data kartu (pengganti db.json / array di halaman)
+    public static function ambil(): self
+    {
+        $kartuPrioritas = [
+            [
+                "ikon"      => "📝",
+                "judul"     => "Ide Riset",
+                "tipe"      => "Note",
+                "deskripsi" => "Bandingkan cara peneliti mencatat ide: dokumen, sticky note, atau papan visual.",
+                "jumlah"    => 1,
+                "satuan"    => "catatan",
+                "status"    => "selesai",
+            ],
+            [
+                "ikon"      => "☑️",
+                "judul"     => "Tugas Minggu Ini",
+                "tipe"      => "Checklist",
+                "deskripsi" => "Kumpulkan referensi, rangkum temuan awal, dan diskusi dengan pembimbing.",
+                "jumlah"    => 3,
+                "satuan"    => "tugas",
+                "status"    => "proses",
+            ],
+            [
+                "ikon"      => "🖼️",
+                "judul"     => "Referensi Visual",
+                "tipe"      => "Image",
+                "deskripsi" => "Moodboard sebagai acuan tampilan kanvas dan susunan kartu.",
+                "jumlah"    => 1,
+                "satuan"    => "gambar",
+                "status"    => "baru",
+            ],
+            [
+                "ikon"      => "📤",
+                "judul"     => "Rancangan Ekspor",
+                "tipe"      => "Note",
+                "deskripsi" => "Catatan rencana ekspor kanvas ke format gambar atau PDF.",
+                "jumlah"    => 2,
+                "satuan"    => "catatan",
+                "status"    => "baru",
+            ],
+        ];
+
+        return new self("Tya", "Oktober 2026", "Sedang Dikerjakan", $kartuPrioritas);
+    }
+
+    // Cari satu kartu berdasarkan nomor urut (1, 2, 3, ...); null jika tidak ada
+    public function cariKartu(int $nomor): ?array
+    {
+        foreach ($this->getKartu() as $kartu) {
+            if ((int) $kartu["nomor"] === $nomor) {
+                return $kartu;
+            }
+        }
+        return null;
     }
 
     // Method private: hanya dipakai di dalam class
